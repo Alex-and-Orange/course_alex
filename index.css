@@ -2,8 +2,15 @@ h1{
 	text-align:center;
 	color:#242426;
 }
-#entrance{
-	padding:10px;
-	margin:20px;
-	border:8px solid black;
+.entrance{
+	display: flex;	 /* Отображения блока FLEX (Загугли) */
+	flex-direction: column; /* позиционирование всех объектов внутри блока column (В колонку) */
+
+	align-items: center; /* Позиционирование объектов внутри по центру */
+
+	height: 55vh;		/*Настройки контейнера (По сути центровка его но ебать какая тупая, прости D: ) */
+	margin-left: 35%;
+	margin-right: 35%;
+
+	border:2px solid black;
 }
