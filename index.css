@@ -28,4 +28,22 @@ button:hover{
 #description {
 	color:white;
 	font-size:40px;
+	width: 500px;
+	height:200px;
+	text-align:center;
+	margin: 50px 0 0 500px;
+	
+	display: flex;
+	flex-direction:column;
+	
+	align-items:center;
+	
+	height:20vh;
+	margin-left:34%;
+	margin-right:0%;
+	
+	border: 2px solid black;
+	background-color: black;
+	opacity: 0.5;
+	font-family:Stalemate;
 }
