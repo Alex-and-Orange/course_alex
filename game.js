@@ -1,15 +1,33 @@
-let ctx = document.querySelector("canvas");
+let canvas = document.querySelector("canvas");
+let ctx = canvas.getContext('2d');
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
 
 //INSTRUMENTAL SIDE//
 let isIconNameActive_ = false;
 let isIconColorActive_ = false;
 
+let mouse = new Image();
+let backgroud = new Image();
+backgroud.src = './image/Interer/Fon.jpg';
+backgroud.onload = () => {
+    ctx.drawImage(backgroud,0,0,canvas.width,canvas.height);
+}
+
 
 //Player
 let player = {
     imgPlayer : new Image(), //Инициализация изображения персонажа
-    x : 0,      //Положение по X
-    y : 0,      //Положение по Y
+   
+    x: 500 ,
+    y: 450,
+    lastX: 50,
+    lastY: 50,
+    dx: 500,
+    dy: 0,
+    ddy: 300,
+    size: 500,
+
     speed : 50, //Скорость перемещения
     
     name : '',
@@ -72,6 +90,8 @@ window.onload = () => {
         player.name = localStorage.name;
         player.color = localStorage.color;
         player.imgPlayer.src = localStorage.url;
+
+        start();
     }
 };
 
@@ -132,8 +152,66 @@ function setStorage() {
 
 function start() {
     document.querySelector('#icon').remove(); 
-    
 
+    // let photo = document.createElement('img');
+    // photo.id = 'photo';
+    // photo.src = localStorage.url;
+    // let parrent = document.querySelector('body');
+    // parrent.appendChild(photo);
+
+    mouse.src = localStorage.url;
+
+    playGame();
 }
 
+// ********************* //
+function playGame() {
+    let last = Date.now();
 
+    var isDown = [];
+    document.addEventListener("keydown", (e)=>{
+        isDown[e.key.toLowerCase()] = true;
+    });
+    document.addEventListener("keyup", (e)=>{
+        isDown[e.key.toLowerCase()] = false;
+    });
+    
+    function play() {
+        let now = Date.now();
+        let dt = (now - last)/1000;
+        update(dt);
+        render();
+        requestAnimationFrame(play);
+        last = now;
+    }
+    
+    function update(dt){
+        player.lastX = player.x;
+        player.lastY = player.y;
+        if(isDown['a']){
+            player.x -= player.dx * dt;
+        }
+        if(isDown['d']){
+            player.x += player.dx * dt;
+        }
+        player.dy += player.ddy * dt;
+        if(player.dy > 900){
+            player.dy = 900;
+        }
+    }
+    
+    function render(){     
+        console.log('Start render');
+
+        // let photo = document.querySelector('#photo');
+        
+        ctx.drawImage(backgroud,0,0,canvas.width,canvas.height);
+
+        ctx.drawImage(mouse, player.x, player.y, player.size, player.size);
+
+
+
+        //console.log('End render');
+    }
+    play();
+}

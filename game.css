@@ -2,24 +2,18 @@ h1{
 	text-align:center;
 	font-size:40px;
 	color:#790018;
+	z-index: 1;
 }
 body{
-	background-image: url(image/Interer/Fon.jpg);
+	/* background-image: url(image/Interer/Fon.jpg); */
+	z-index: 0;
 }
 
-.ctx {
-	width: 1280px;
-	height: 500px;
-	align-content: center;
-	background-color: gray;
-	border: 1px solid black;
-	opacity: 0.5;
-}
 canvas {
-	width: 1280px;
-	height: 720px;
+	position: absolute;
+	top: 0;
+	left: 0;
 }
-
 
 .inputName {
 	width: 200px;
@@ -49,4 +43,8 @@ canvas {
 	border-radius: 5%;
 
 	background-color: white;
+}
+
+#photo {
+	z-index: -1;
 }
