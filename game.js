@@ -19,8 +19,8 @@ backgroud.onload = () => {
 let player = {
     imgPlayer : new Image(), //Инициализация изображения персонажа
    
-    x: 500 ,
-    y: 450,
+    x: canvas.width / 2.5 ,
+    y: canvas.height -500,
     lastX: 50,
     lastY: 50,
     dx: 500,
@@ -32,8 +32,19 @@ let player = {
     
     name : '',
     color : '',
-    url : ''
+    url : '',
 }
+//MAPS
+
+let maps = {
+    map_Spalnia_base: './image/Comnat/Spalnya.png',
+    map_Kuhnya: './image/Comnat/Kuhnya.png',
+    map_Vanna: './image/Comnat/Vanna.png',
+    _Spalnia: true,
+    _Kuhnya: false,
+    _Vanna: false
+}
+
 
 //Mouse pictures
 let mousePictures = [
@@ -158,6 +169,8 @@ function start() {
     // photo.src = localStorage.url;
     // let parrent = document.querySelector('body');
     // parrent.appendChild(photo);
+    
+
 
     mouse.src = localStorage.url;
 
@@ -188,10 +201,10 @@ function playGame() {
     function update(dt){
         player.lastX = player.x;
         player.lastY = player.y;
-        if(isDown['a']){
+        if(isDown['a'] || isDown['ф']){
             player.x -= player.dx * dt;
         }
-        if(isDown['d']){
+        if(isDown['d'] || isDown['в']){
             player.x += player.dx * dt;
         }
         player.dy += player.ddy * dt;
@@ -204,9 +217,17 @@ function playGame() {
         console.log('Start render');
 
         // let photo = document.querySelector('#photo');
-        
-        ctx.drawImage(backgroud,0,0,canvas.width,canvas.height);
+        let map_now = new Image();
 
+        if(maps._Spalnia) {
+            map_now.src = maps.map_Spalnia_base;
+        } else if(maps._Vanna) {
+            map_now.src = maps.map_Vanna;
+        } else if(maps._Kuhnya) {
+            map_now.src = maps.map_Kuhnya;
+        }
+
+        ctx.drawImage(map_now, 0, 0, canvas.width, canvas.height);
         ctx.drawImage(mouse, player.x, player.y, player.size, player.size);
 
 
